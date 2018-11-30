@@ -1,4 +1,4 @@
-FROM php:7.1.24-fpm
+FROM php:7.2.12-fpm
 
 MAINTAINER "Magento"
 
