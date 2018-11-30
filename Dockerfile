@@ -4,7 +4,7 @@ MAINTAINER "Magento"
 
 ENV PHP_EXTRA_CONFIGURE_ARGS="--enable-fpm --with-fpm-user=magento2 --with-fpm-group=magento2"
 
-RUN apt-get update && apt-get install -y 
+RUN apt-get update && apt-get install -y \
     apt-utils \
     sudo \
     wget \
