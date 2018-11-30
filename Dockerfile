@@ -4,26 +4,25 @@ MAINTAINER "Magento"
 
 ENV PHP_EXTRA_CONFIGURE_ARGS="--enable-fpm --with-fpm-user=magento2 --with-fpm-group=magento2"
 
-RUN apt-get update && apt-get install -y \
-    apt-utils \
-    sudo \
-    wget \
-    unzip \
-    cron \
-    curl \
-    libmcrypt-dev \
-    libicu-dev \
-    libxml2-dev libxslt1-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng12-dev \
-    git \
-    vim \
-    openssh-server \
-    supervisor \
-    mysql-client \
-    ocaml \
-    expect 
+RUN apt-get update && apt-get install apt-utils 
+RUN apt-get install sudo 
+RUN apt-get install wget 
+RUN apt-get install unzip 
+RUN apt-get install cron 
+RUN apt-get install curl 
+RUN apt-get install libmcrypt-dev 
+RUN apt-get install libicu-dev 
+RUN apt-get install libxml2-dev libxslt1-dev 
+RUN apt-get install libfreetype6-dev 
+RUN apt-get install libjpeg62-turbo-dev 
+RUN apt-get install libpng12-dev 
+RUN apt-get install git 
+RUN apt-get install vim 
+RUN apt-get install openssh-server 
+RUN apt-get install supervisor 
+RUN apt-get install mysql-client 
+RUN apt-get install ocaml 
+RUN apt-get install expect 
 RUN curl -L https://github.com/bcpierce00/unison/archive/2.48.4.tar.gz | tar zxv -C /tmp && \
              cd /tmp/unison-2.48.4 && \
              sed -i -e 's/GLIBC_SUPPORT_INOTIFY 0/GLIBC_SUPPORT_INOTIFY 1/' src/fsmonitor/linux/inotify_stubs.c && \
