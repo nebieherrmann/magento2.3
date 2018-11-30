@@ -4,7 +4,7 @@ MAINTAINER "Magento"
 
 ENV PHP_EXTRA_CONFIGURE_ARGS="--enable-fpm --with-fpm-user=magento2 --with-fpm-group=magento2"
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y 
     apt-utils \
     sudo \
     wget \
@@ -24,44 +24,44 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     ocaml \
     expect \
-    && curl -L https://github.com/bcpierce00/unison/archive/2.48.4.tar.gz | tar zxv -C /tmp && \
+RUN  curl -L https://github.com/bcpierce00/unison/archive/2.48.4.tar.gz | tar zxv -C /tmp && \
              cd /tmp/unison-2.48.4 && \
              sed -i -e 's/GLIBC_SUPPORT_INOTIFY 0/GLIBC_SUPPORT_INOTIFY 1/' src/fsmonitor/linux/inotify_stubs.c && \
              make && \
              cp src/unison src/unison-fsmonitor /usr/local/bin && \
              cd /root && rm -rf /tmp/unison-2.48.4 \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-configure hash --with-mhash \
-    && docker-php-ext-install -j$(nproc) mcrypt intl xsl gd zip pdo_mysql opcache soap bcmath json iconv \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && pecl install xdebug && docker-php-ext-enable xdebug \
-    && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_connect_back=0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_host=127.0.0.1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.max_nesting_level=1000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && chmod 666 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && mkdir /var/run/sshd \
-    && apt-get clean && apt-get update && apt-get install -y nodejs \
-    && ln -s /usr/bin/nodejs /usr/bin/node \
-    && apt-get install -y npm \
-    && npm update -g npm && npm install -g grunt-cli && npm install -g gulp \
-    && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
-    && apt-get install -y apache2 \
-    && a2enmod rewrite \
-    && a2enmod proxy \
-    && a2enmod proxy_fcgi \
-    && rm -f /etc/apache2/sites-enabled/000-default.conf \
-    && useradd -m -d /home/magento2 -s /bin/bash magento2 && adduser magento2 sudo \
-    && echo "magento2 ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && touch /etc/sudoers.d/privacy \
-    && echo "Defaults        lecture = never" >> /etc/sudoers.d/privacy \
-    && mkdir /home/magento2/magento2 && mkdir /var/www/magento2 \
-    && mkdir /home/magento2/state \
-    && curl -sS https://accounts.magento.cloud/cli/installer -o /home/magento2/installer \
-    && rm -r /usr/local/etc/php-fpm.d/* \
-    && sed -i 's/www-data/magento2/g' /etc/apache2/envvars
+RUN  docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+RUN  docker-php-ext-configure hash --with-mhash \
+RUN  docker-php-ext-install -j$(nproc) mcrypt intl xsl gd zip pdo_mysql opcache soap bcmath json iconv \
+RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+RUN  pecl install xdebug && docker-php-ext-enable xdebug \
+RUN  echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  echo "xdebug.remote_connect_back=0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  echo "xdebug.remote_host=127.0.0.1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  echo "xdebug.max_nesting_level=1000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  chmod 666 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+RUN  mkdir /var/run/sshd \
+RUN  apt-get clean && apt-get update && apt-get install -y nodejs \
+RUN  ln -s /usr/bin/nodejs /usr/bin/node \
+RUN  apt-get install -y npm \
+RUN  npm update -g npm && npm install -g grunt-cli && npm install -g gulp \
+RUN  echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
+RUN  apt-get install -y apache2 \
+RUN  a2enmod rewrite \
+RUN  a2enmod proxy \
+RUN  a2enmod proxy_fcgi \
+RUN  rm -f /etc/apache2/sites-enabled/000-default.conf \
+RUN  useradd -m -d /home/magento2 -s /bin/bash magento2 && adduser magento2 sudo \
+RUN  echo "magento2 ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+RUN  touch /etc/sudoers.d/privacy \
+RUN  echo "Defaults        lecture = never" >> /etc/sudoers.d/privacy \
+RUN  mkdir /home/magento2/magento2 && mkdir /var/www/magento2 \
+RUN  mkdir /home/magento2/state \
+RUN  curl -sS https://accounts.magento.cloud/cli/installer -o /home/magento2/installer \
+RUN  rm -r /usr/local/etc/php-fpm.d/* \
+RUN  sed -i 's/www-data/magento2/g' /etc/apache2/envvars
 
 # PHP config
 ADD conf/php.ini /usr/local/etc/php
@@ -86,7 +86,7 @@ ADD conf/unison.sh /usr/local/bin/unison.sh
 ADD conf/entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD conf/check-unison.sh /usr/local/bin/check-unison.sh
 RUN chmod +x /usr/local/bin/unison.sh && chmod +x /usr/local/bin/entrypoint.sh \
-    && chmod +x /usr/local/bin/check-unison.sh
+RUN  chmod +x /usr/local/bin/check-unison.sh
 
 ENV PATH $PATH:/home/magento2/scripts/:/home/magento2/.magento-cloud/bin
 ENV PATH $PATH:/var/www/magento2/bin
@@ -115,8 +115,8 @@ RUN mkdir /mac-osx \
 # Initial scripts
 COPY scripts/ /home/magento2/scripts/
 RUN sed -i 's/^/;/' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && cd /home/magento2/scripts && composer install && chmod +x /home/magento2/scripts/m2init \
-    && sed -i 's/^;;*//' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN  cd /home/magento2/scripts && composer install && chmod +x /home/magento2/scripts/m2init \
+RUN  sed -i 's/^;;*//' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN chown -R magento2:magento2 /home/magento2 && \
     chown -R magento2:magento2 /var/www/magento2 && \
