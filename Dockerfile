@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.1-fpm
 
 MAINTAINER "Magento"
 
@@ -24,7 +24,6 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     ocaml \
     expect \
-    apt-transport-https \
     && curl -L https://github.com/bcpierce00/unison/archive/2.48.4.tar.gz | tar zxv -C /tmp && \
              cd /tmp/unison-2.48.4 && \
              sed -i -e 's/GLIBC_SUPPORT_INOTIFY 0/GLIBC_SUPPORT_INOTIFY 1/' src/fsmonitor/linux/inotify_stubs.c && \
