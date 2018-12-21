@@ -4,6 +4,11 @@ MAINTAINER "Magento"
 
 ENV PHP_EXTRA_CONFIGURE_ARGS="--enable-fpm --with-fpm-user=magento2 --with-fpm-group=magento2"
 
+RUN apt-get update
+RUN apt-get install -y gnupg
+
+RUN curl --silent --location https://deb.nodesource.com/setup_10.x | bash -
+
 RUN apt-get update && apt-get install -y \
     apt-utils \
     sudo \
@@ -43,7 +48,6 @@ RUN apt-get update && apt-get install -y \
     && chmod 666 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && mkdir /var/run/sshd \
     && apt-get clean && apt-get update && apt-get install -y nodejs \
-    && ln -s /usr/bin/nodejs /usr/bin/node \
     && apt-get install -y npm \
     && npm update -g npm && npm install -g grunt-cli && npm install -g gulp \
     && echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
