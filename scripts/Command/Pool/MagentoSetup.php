@@ -51,7 +51,7 @@ class MagentoSetup extends AbstractCommand
 
         $command = sprintf(
             'cd %s && php bin/magento setup:install'
-                . ' --base-url=http://%s:%s/ --db-host=%s --db-name=%s'
+                . ' --cleanup-database --base-url=http://%s:%s/ --db-host=%s --db-name=%s'
                 . ' --db-user=%s --db-password=%s --admin-firstname=Magento --admin-lastname=User'
                 . ' --admin-email=user@example.com --admin-user=%s --admin-password=%s'
                 . ' --language=en_US --currency=USD --timezone=America/Chicago --use-rewrites=1'
